@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href={{ url_for( 'static' , filename='style.css' ) }} />
+    <link rel="icon" href={{ url_for( 'static' , filename='icon.jpg' ) }} />
+    <script src="https://kit.fontawesome.com/0b34596191.js" crossorigin="anonymous"></script>
+    <title>Michael's Movie Picks</title>
+</head>
+
+<body>
+    <!-- <div class="header">
+        <div> -->
+    <form align="right" method="POST" action="/handle_logout">
+        <button type="submit">Log Out</button>
+    </form>
+    <!-- </div>
+        <div> -->
+    <h1>Michael's Movie Picks</h1>
+    <h2>Today's Movies</h2>
+    <!-- </div>
+    </div> -->
+
+    <div class="container">
+        {% for i in range(3) %}
+        <div class="movie_info">
+            <div class="info">
+                <h3><a class="title" href={{ displayed[i]["wiki_link"] }} target="_blank">
+                        {{ displayed[i]["title"] }}</a></h3>
+                <p><b>{{ displayed[i]["tagline"] }}</b></p>
+                <p>{{ displayed[i]["overview"] }}</p>
+                <p>Genres:</p>
+                <p class="genres">
+                    {% for j in range(glengths[i]) %}
+                    {{ displayed[i]["genres"][j] }}
+                    {% endfor %}
+                </p>
+            </div>
+            <div class="picture">
+                <img src={{ poster_url }}{{ displayed[i]["poster_path"] }}>
+            </div>
+
+            <div class="comment_form">
+                <p>What's your take?</p>
+                <form method="POST" action="/handle_review">
+                    <input type="hidden" name="movieid" value={{displayed_ids[i]}}>
+                    <div id="rating{{i}}">
+                        <div class="rating-group-{{i}}">
+                            <input disabled checked class="rating__input-{{i}} rating__input--none-{{i}}" type="radio"
+                                id="star0-{{i}}" name="rating" value="0" />
+
+
+                            <label aria-label="1 star-{{i}}" class="rating__label-{{i}}" for="star1-{{i}}"><i
+                                    class="rating_icon-{{i}} rating__icon--star-{{i}} fa fa-star"></i></label>
+                            <input class="rating__input-{{i}}" name="rating" type="radio" id="star1-{{i}}" value="1"
+                                type="radio">
+
+
+                            <label aria-label="2 star-{{i}}" class="rating__label-{{i}}" for="star2-{{i}}"><i
+                                    class="rating_icon-{{i}} rating__icon--star-{{i}} fa fa-star"></i></label>
+                            <input class="rating__input-{{i}}" name="rating" type="radio" id="star2-{{i}}" value="2"
+                                type="radio">
+
+
+                            <label aria-label="3 star-{{i}}" class="rating__label-{{i}}" for="star3-{{i}}"><i
+                                    class="rating_icon-{{i}} rating__icon--star-{{i}} fa fa-star"></i></label>
+                            <input class="rating__input-{{i}}" name="rating" type="radio" id="star3-{{i}}" value="3"
+                                type="radio">
+
+
+                            <label aria-label="4 star-{{i}}" class="rating__label-{{i}}" for="star4-{{i}}"><i
+                                    class="rating_icon-{{i}} rating__icon--star-{{i}} fa fa-star"></i></label>
+                            <input class="rating__input-{{i}}" name="rating" type="radio" id="star4-{{i}}" value="4"
+                                type="radio">
+
+
+                            <label aria-label="5 star-{{i}}" class="rating__label-{{i}}" for="star5-{{i}}"><i
+                                    class="rating_icon-{{i}} rating__icon--star-{{i}} fa fa-star"></i></label>
+                            <input class="rating__input-{{i}}" name="rating" type="radio" id="star5-{{i}}" value="5"
+                                type="radio">
+
+                        </div>
+                    </div>
+                    <div class="review">
+                        <br>
+                        <textarea name="review" placeholder="Write your review for {{ displayed[i]['title'] }}."
+                            rows="4" cols="50"></textarea>
+                    </div>
+                    <div class="submit_button">
+                        <br>
+                        <input type="submit" value="Leave a Review!">
+                    </div>
+                </form>
+            </div>
+            {% for j in range(displayed_posts["users"][i] | length) %}
+            <div class="reviews">
+                <div class="line1">
+                    <div class="rev_user">
+                        <p>User: {{displayed_posts["users"][i][j]}}</p>
+                    </div>
+                    <div class="rev_rating">
+                        {% if displayed_posts["ratings"][i][j] == None %}
+                        <p class>No Rating Given</p>
+                        {% else %}
+                        <p class="rev_rating">{{displayed_posts["ratings"][i][j]}}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="rev_rev">
+                    <p class="rev_rev"><i>{{displayed_posts["reviews"][i][j]}}</i></p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+</body>

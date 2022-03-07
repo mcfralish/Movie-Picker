@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<head>
+    <link rel="icon" href={{ url_for( 'static' , filename='icon.jpg' ) }} />
+    <link rel="stylesheet" href={{ url_for( 'static' , filename='signup.css' ) }} />
+    <title>Michael's Movie Picks</title>
+</head>
+
+<body>
+    <h1>Michael's Movie Picks</h1>
+    <form method="POST" action="/handle_signup">
+        <div class="imgcontainer">
+            <img src={{ url_for( 'static' , filename='popcorn.jpg' ) }} alt="Popcorn" class="art" />
+        </div>
+
+        <div class="container">
+            <div class="row row1">
+                <div class="email">
+                    <label for="email"><b>Email</b></label><br>
+                    <input type="email" name="email" placeholder="user@michaelsmoviepicks.com"><br><br>
+                </div>
+                <div class="uid">
+                    <label for="uid"><b>UserID</b></label><br>
+                    <input type="text" name="uid" placeholder="UserID"><br><br>
+                </div>
+            </div>
+
+
+            <div class="row row2">
+                <div class="pw">
+                    <label for="password"><b>Password</b></label><br>
+                    <input type="password" name="pw" placeholder="Password"><br><br>
+                </div>
+                <div class="retype">
+                    <label for="retype"><b>Retype Password</b></label><br>
+                    <input type="password" name="retype" placeholder="Retype Password"><br><br>
+                </div>
+            </div>
+
+
+            <div class="row row3">
+                <div class="fname">
+                    <label for="fname"><b>First Name</b></label><br>
+                    <input type="text" name="fname" placeholder="First"><br><br>
+                </div>
+                <div class="lname">
+                    <label for="lname"><b>Last Name</b></label><br>
+                    <input type="text" name="lname" placeholder="Last"><br><br>
+                </div>
+            </div>
+        </div>
+
+        <div class="signup_button">
+            <button type="submit">Sign Up</button><br>
+            {% with messages=get_flashed_messages() %}
+            {% if messages %}
+            <ul class="flashes">
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
+            {% block body %}{% endblock %}
+        </div>
+
+        <div>
+            <p>Already have an account?</p>
+            <p><a href="{{url_for('login')}}">Login Now</a></p>
+        </div>
+    </form>
+</body>
