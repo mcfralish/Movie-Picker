@@ -46,7 +46,12 @@ def index():
     if not current_user.is_authenticated:
         return flask.redirect(flask.url_for("login"))
 
-    return flask.render_template("index.html")
+    return flask.render_template(
+        "index.html",
+    )
+
+
+app.register_blueprint(bp)
 
 
 @app.route("/main", methods=["POST", "GET"])
@@ -150,10 +155,23 @@ def handle_review():
     return flask.redirect(flask.url_for("main"))
 
 
-@app.route("/handle_logout", methods=["POST"])
-def handle_lougout():
+@app.route("/handle_logout")
+def handle_logout():
     logout_user()
     return flask.redirect(flask.url_for("main"))
+
+
+@app.route("/react_logout")
+def react_logout():
+    logout_user()
+    return flask.jsonify("ignored")
+
+
+@app.route("/get_reviews")
+# Manually convert reviews to dicts
+def get_reviews():
+    revs = Reviews.query.filter_by(uid=current_user.uid).all()
+    return flask.jsonify(revs)
 
 
 @app.route("/login", methods=["POST", "GET"])
@@ -179,7 +197,6 @@ def handle_login():
         flask.redirect(flask.url_for("login"))
 
     else:
-        print("logged in")
         login_user(visitor)
         flask.redirect(flask.url_for("main"))
 
@@ -213,7 +230,5 @@ def handle_signup():
         flask.flash("User already exists. Please try another name or sign in now.")
         return flask.redirect(flask.url_for("signup"))
 
-
-app.register_blueprint(bp)
 
 app.run(host=os.getenv("IP", "0.0.0.0"), port=int(os.getenv("PORT", 8080)), debug=True)
