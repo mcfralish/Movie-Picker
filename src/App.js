@@ -5,6 +5,7 @@ import { CommentBlock } from './CommentBlock';
 function App() {
 
   const [rating, setRating] = useState(["rating"]);
+  console.log('getting user reviews')
   fetch('/get_reviews').then(response => response.json()).then(data => { setRating(data) })
   const inputRef = useRef(null);
 
@@ -21,7 +22,7 @@ function App() {
         <p>{rating}</p>
       </header>
       <ul>
-        {/* {CommentBlock.map()} */}
+        {rating.map(info => <CommentBlock title={info.title} rating={info.rating} comment={info.comment}/>)}
       </ul>
     </div>
   );

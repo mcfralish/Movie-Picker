@@ -3,6 +3,7 @@ import os
 import random
 from dotenv import find_dotenv, load_dotenv
 from flask_login import current_user, LoginManager, login_user, logout_user
+from itsdangerous import json
 from tmdb import get_movie_data
 from wiki import get_wiki
 from models import db, Users, Reviews
@@ -171,7 +172,16 @@ def react_logout():
 # Manually convert reviews to dicts
 def get_reviews():
     revs = Reviews.query.filter_by(uid=current_user.uid).all()
-    return flask.jsonify(revs)
+    json = {}
+    print(revs)
+    for i in range(len(revs)):
+        new_rev = {
+            "movieid": "",
+            "rating": "",
+            "comment": ""}
+        json[i] = new_rev
+
+    return json
 
 
 @app.route("/login", methods=["POST", "GET"])
