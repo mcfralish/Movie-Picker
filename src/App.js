@@ -4,9 +4,10 @@ import { CommentBlock } from './CommentBlock';
 
 function App() {
 
-  const [rating, setRating] = useState(["rating"]);
+  const [reviews, setReviews] = useState(["rating"]);
   console.log('getting user reviews')
-  fetch('/get_reviews').then(response => response.json()).then(data => { setRating(data) })
+  fetch('/get_reviews').then(response => response.json()).then(data => { setReviews(data) })
+  console
   const inputRef = useRef(null);
 
   function logout() {
@@ -22,7 +23,7 @@ function App() {
         <p>{rating}</p>
       </header>
       <ul>
-        {rating.map(info => <CommentBlock title={info.title} rating={info.rating} comment={info.comment}/>)}
+        {reviews.map(info => <CommentBlock title={info.title} rating={info.rating} comment={info.comment} />)}
       </ul>
     </div>
   );

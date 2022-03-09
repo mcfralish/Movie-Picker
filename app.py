@@ -176,10 +176,13 @@ def get_reviews():
     print(revs)
     for i in range(len(revs)):
         new_rev = {
-            "movieid": "",
-            "rating": "",
-            "comment": ""}
+            "movieid": revs[i].movieid,
+            "rating": revs[i].rating,
+            "comment": revs[i].rev,
+        }
         json[i] = new_rev
+
+    print(json)
 
     return json
 
