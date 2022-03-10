@@ -187,8 +187,16 @@ def get_reviews():
     return flask.jsonify(json)
 
 
-@app.route("/delete_comment", methods=["POST"])
-def delete_comment():
+@app.route("/save_deletes", methods=["POST"])
+def save_deletes():
+    data = flask.request.json
+    print("Deletes received from react: ", data)
+
+    return ""
+
+
+@app.route("/save_edits", methods=["POST"])
+def save_edits():
 
     return ""
 
