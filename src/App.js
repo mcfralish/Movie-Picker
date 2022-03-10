@@ -1,5 +1,6 @@
 import './App.css';
 import { useState, useEffect, useRef } from 'react';
+import { DeleteButton } from './DeleteButton';
 import { CommentBlock } from './CommentBlock';
 
 function App() {
@@ -38,14 +39,11 @@ function App() {
     deletes.push(removed);
     console.log("Deletes: ", deletes)
     setReviews(newReviews);
-    // setReviews(() => ({
-    //   newReviews
-    // }))
     console.log("Reviews after set: ", reviews);
     return;
   }
 
-  function changeRating(i, newrating) {
+  function changeRating(e, id) {
     const update = [...reviews].map(review => {
 
       console.log("ID: ", id);
@@ -88,6 +86,11 @@ function App() {
     })
   }
 
+  function showDelete(){
+    return 
+  }
+
+
   // function createBlock(review, i) {
   //   console.log("Title: ", review["title"]);
   //   console.log("Rating: ", review["rating"]);
@@ -118,8 +121,10 @@ function App() {
           <p>Title: {review.title}
 
             <input type="number" min="1" max="5" value={review.rating} onChange={(e) => changeRating(e.target.value, review.id)} />
+            <br/>
             <p>{review.comment}</p>
-            <CommentBlock comment={comment} onClick={() => deleteComment(i, comment)} />
+            {showDelete(i)}
+            {/* <CommentBlock comment={comment} onClick={() => deleteComment(i, comment)} /> */}
           </p>
         ))}
       </ul>
