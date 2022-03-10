@@ -172,20 +172,25 @@ def react_logout():
 # Manually convert reviews to dicts
 def get_reviews():
     revs = Reviews.query.filter_by(uid=current_user.uid).all()
-    json = {}
+    json = []
     print(revs)
     for i in range(len(revs)):
         new_rev = {
-            "movieid": revs[i].movieid,
+            "id": revs[i].id,
+            "title": get_movie_data(revs[i].movieid)["title"],
             "rating": revs[i].rating,
             "comment": revs[i].rev,
         }
-        json[i] = new_rev
+        json.append(new_rev)
 
     print(json)
 
-    return json
+    return flask.jsonify(json)
 
+
+@app.route("/delete_comment", methods=["POST"])
+def delete_comment():
+    return ""
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
