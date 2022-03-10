@@ -1,12 +1,14 @@
 import './App.css';
-import { useState, useEffect, setState, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { CommentBlock } from './CommentBlock';
 
 function App() {
 
   const [reviews, setReviews] = useState([]);
-  const [deletes, setDeletes] = useState([]);
-  const inputRef = useRef(null);
+  // const [deletes, setDeletes] = useState([]);
+  let deletes = []
+  const [edits, setEdits] = useState([]);
+  const newRatings = useRef(new Array());
 
   useEffect(() => {
     console.log('getting user reviews')
@@ -32,8 +34,13 @@ function App() {
     const removed = newReviews.splice(i, 1);
     console.log("New Reviews after splice: ", newReviews);
     console.log("Removed: ", removed);
-    setReviews(newReviews);
-    console.log(reviews);
+    deletes.push(removed);
+    console.log("Deletes: ", deletes)
+    // setReviews(newReviews);
+    setReviews(() => ({
+      newReviews
+    }))
+    console.log("Reviews after set: ", reviews);
     return;
   }
 
@@ -41,7 +48,9 @@ function App() {
     const newReviews = reviews;
     console.log("New Reviews: ", newReviews);
     console.log("New Reviews[i]['rating']", newReviews[i]["rating"]);
-    const val = inputRef.current.value;
+    console.log("newRatings: ", newRatings);
+    console.log("newRatings[i]: ", newRatings[i])
+    const val = newRatings[i].current.value;
     newReviews[i]["rating"] = val;
     console.log("After rating change: ", newReviews[i]["rating"]);
   }
@@ -62,15 +71,13 @@ function App() {
           title={review["title"]}
           rating={review["rating"]}
           comment={review["comment"]} />
-        <input type="text" ref={inputRef} placeholder="New Rating" />
+        <input type="text" ref={newRatings[i]} placeholder="New Rating" />
         <button onClick={() => { changeRating(i) }}>Edit Rating</button>
         <button><img src='./trash.jpg' alt='trash can' onClick={() => { deleteComment(i) }} /></button>
       </>)
 
 
   }
-
-
 
   return (
     <div className="">
