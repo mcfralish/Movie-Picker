@@ -169,7 +169,6 @@ def react_logout():
 
 
 @app.route("/get_reviews")
-# Manually convert reviews to dicts
 def get_reviews():
     revs = Reviews.query.filter_by(uid=current_user.uid).all()
     json = []
@@ -190,7 +189,9 @@ def get_reviews():
 
 @app.route("/delete_comment", methods=["POST"])
 def delete_comment():
+
     return ""
+
 
 @app.route("/login", methods=["POST", "GET"])
 def login():

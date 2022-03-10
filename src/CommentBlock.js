@@ -1,10 +1,10 @@
 export function CommentBlock(props) {
 
-    function determineNull(){
-        if(props.rating === null){
+    function determineNull() {
+        if (props.rating === null) {
             return "No rating given"
         }
-        else{
+        else {
             return (props.rating)
         }
     }
@@ -12,9 +12,8 @@ export function CommentBlock(props) {
     return (
         <li>
             <p>Title: {props.title}</p>
-            <p>Rating: {determineNull()}</p>
-            <label>New rating</label>
             <p>Comment: {props.comment}</p>
+            <p>Rating: {determineNull()}</p>
         </li>
     );
 }
