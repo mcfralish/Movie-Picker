@@ -1,4 +1,5 @@
 export function CommentBlock(props) {
+    // Determines if a rating is null or not. If it is, it displays that a rating has not been given with this review
     function determineNull() {
         if (props.rating === null) {
             return 'No rating given';
