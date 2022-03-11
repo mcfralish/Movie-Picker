@@ -3,6 +3,9 @@ import { useState, useEffect, useRef } from 'react';
 import { DeleteButton } from './DeleteButton';
 import { CommentBlock } from './CommentBlock';
 
+
+
+
 function App() {
 
   const [reviews, setReviews] = useState([]);
@@ -11,7 +14,11 @@ function App() {
   let deletes = [];
   let edits = [];
   const newRatings = useRef(new Array());
-
+  const DeleteButton = () => {
+    return (
+      <button onClick={() => deleteComment(i)}>Trashcan</button>
+    );
+  }
   useEffect(() => {
     console.log('getting user reviews')
     fetch('/get_reviews', {
@@ -86,8 +93,8 @@ function App() {
     })
   }
 
-  function showDelete(){
-    return 
+  function showDelete() {
+    return
   }
 
 
@@ -121,9 +128,10 @@ function App() {
           <p>Title: {review.title}
 
             <input type="number" min="1" max="5" value={review.rating} onChange={(e) => changeRating(e.target.value, review.id)} />
-            <br/>
+            <br />
             <p>{review.comment}</p>
             {showDelete(i)}
+            {DeleteButton}
             {/* <CommentBlock comment={comment} onClick={() => deleteComment(i, comment)} /> */}
           </p>
         ))}
