@@ -1,20 +1,20 @@
 export function CommentBlock(props) {
-
     function determineNull() {
         if (props.rating === null) {
-            return "No rating given"
+            return 'No rating given';
         }
-        else {
-            return (props.rating)
-        }
+        return '';
     }
 
     return (
-        <li>
+        <div>
             <p>Title: {props.title}</p>
             <p>Comment: {props.comment}</p>
-            <p>Rating: {determineNull()}</p>
-        </li>
+            <p>Your Rating: {determineNull()}</p>
+            <input type="number" min="1" max="5" value={props.rating} onChange={props.onRatingChange} />
+            <br />
+            <button class="trash" onClick={props.onDeleteButton}>Trash</button>
+        </div>
     );
 }
 

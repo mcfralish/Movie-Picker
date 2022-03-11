@@ -9,17 +9,13 @@
 </head>
 
 <body>
-    <!-- <div class="header">
-        <div> -->
-    <form align="right" method="GET" action="/handle_logout">
-        <button type="submit">Log Out</button>
-    </form>
-    <!-- </div>
-        <div> -->
+    <nav>
+        <a href="{{url_for('bp.index')}}"><button align="left">My Review page</button></a>
+        <a href="{{url_for('handle_logout')}}"><button align="right">Log Out</button></a>
+    </nav>
+
     <h1>Michael's Movie Picks</h1>
     <h2>Today's Movies</h2>
-    <!-- </div>
-    </div> -->
 
     <div class="container">
         {% for i in range(3) %}

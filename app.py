@@ -3,7 +3,6 @@ import os
 import random
 from dotenv import find_dotenv, load_dotenv
 from flask_login import current_user, LoginManager, login_user, logout_user
-from itsdangerous import json
 from tmdb import get_movie_data
 from wiki import get_wiki
 from models import db, Users, Reviews
@@ -187,16 +186,23 @@ def get_reviews():
     return flask.jsonify(json)
 
 
-@app.route("/save_deletes", methods=["POST"])
-def save_deletes():
+@app.route("/save", methods=["POST"])
+def save():
     data = flask.request.json
-    print("Deletes received from react: ", data)
+    changedRatings = data[0]
+    deletedComments = data[1]
+    print("Changes received: ", changedRatings)
+    print("Deletes received: ", deletedComments)
 
-    return ""
+    for i in range(len(changedRatings)):
+        changed = Reviews.query.filter_by(id=changedRatings[i]["id"]).first()
+        changed.rating = int(changedRatings[i]["rating"])
+        db.session.commit()
 
-
-@app.route("/save_edits", methods=["POST"])
-def save_edits():
+    for i in range(len(deletedComments)):
+        deleted = Reviews.query.filter_by(id=deletedComments[i]).first()
+        db.session.delete(deleted)
+        db.session.commit()
 
     return ""
 
