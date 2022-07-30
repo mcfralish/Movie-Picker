@@ -1,4 +1,4 @@
-# Project Milestone 3
+# Movie Picker
 ## Michael C Fralish
 
 
@@ -38,7 +38,7 @@
 
 
 ## Go here to find the deployed app from mileston 2. The React page is not deployed
-`https://mf-se-milestone2.herokuapp.com/`
+`https://michaels-movie-picks.herokuapp.com/`
 
 
 ## Technical issues and problem solving
